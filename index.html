@@ -17,9 +17,25 @@
     h1,h2,h3,h4 {font-weight: 600;}
 
     :root {
-      --neon-blue: #00f0ff;
-      --neon-pink: #ff00e6;
-      --neon-purple: #9d4edd;
+      --neon1: #00f0ff;
+      --neon2: #ff00e6;
+      --neon3: #ffdd00;
+      --neon4: #9d4edd;
+    }
+
+    /* Text med färgskiftande neon-effekt */
+    .rainbow-text {
+      background: linear-gradient(270deg, var(--neon1), var(--neon2), var(--neon3), var(--neon4));
+      background-size: 800% 800%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow 10s ease infinite;
+      text-shadow: 0 0 8px rgba(255,255,255,0.5);
+    }
+    @keyframes rainbow {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
     }
 
     #bgCanvas {
@@ -44,9 +60,6 @@
     }
     header h1 {
       font-size: 1.3rem;
-      color: var(--neon-blue);
-      text-shadow: 0 0 5px var(--neon-blue), 0 0 15px var(--neon-blue);
-      animation: glowPulse 2.5s infinite alternate;
     }
     nav a {
       margin-left: 1.5rem;
@@ -54,8 +67,8 @@
       transition: color .3s;
     }
     nav a:hover {
-      color: var(--neon-pink);
-      text-shadow: 0 0 5px var(--neon-pink);
+      color: var(--neon3);
+      text-shadow: 0 0 5px var(--neon3);
     }
 
     .hero {
@@ -69,10 +82,7 @@
     }
     .hero h2 {
       font-size: 3rem;
-      color: var(--neon-pink);
-      text-shadow: 0 0 8px var(--neon-pink), 0 0 20px var(--neon-pink);
       margin-bottom: 1rem;
-      animation: glowPulse 3s infinite alternate;
     }
     .hero p {
       max-width: 600px;
@@ -90,16 +100,16 @@
       margin: 0.5rem;
       border-radius: 30px;
       background: transparent;
-      border: 2px solid var(--neon-blue);
-      color: var(--neon-blue);
+      border: 2px solid var(--neon1);
+      color: var(--neon1);
       font-weight: bold;
-      text-shadow: 0 0 6px var(--neon-blue);
+      text-shadow: 0 0 6px var(--neon1);
       transition: all 0.3s;
     }
     .btn:hover {
-      background: var(--neon-blue);
+      background: var(--neon1);
       color: #111;
-      box-shadow: 0 0 12px var(--neon-blue), 0 0 30px var(--neon-blue);
+      box-shadow: 0 0 12px var(--neon1), 0 0 30px var(--neon1);
     }
 
     section {
@@ -115,8 +125,6 @@
       font-size: 2rem;
       text-align: center;
       margin-bottom: 2rem;
-      color: var(--neon-purple);
-      text-shadow: 0 0 8px var(--neon-purple);
     }
 
     .grid {
@@ -134,11 +142,7 @@
     }
     .card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 0 15px var(--neon-blue);
-    }
-    .card h4 {
-      color: var(--neon-blue);
-      margin-bottom: 0.8rem;
+      box-shadow: 0 0 15px var(--neon2);
     }
 
     footer {
@@ -158,18 +162,13 @@
     .socials a svg {
       width: 28px;
       height: 28px;
-      fill: var(--neon-blue);
+      fill: var(--neon1);
       transition: all .3s;
-      filter: drop-shadow(0 0 6px var(--neon-blue));
+      filter: drop-shadow(0 0 6px var(--neon1));
     }
     .socials a:hover svg {
-      fill: var(--neon-pink);
-      filter: drop-shadow(0 0 8px var(--neon-pink));
-    }
-
-    @keyframes glowPulse {
-      from {text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-blue);}
-      to {text-shadow: 0 0 15px var(--neon-pink), 0 0 30px var(--neon-blue);}
+      fill: var(--neon2);
+      filter: drop-shadow(0 0 8px var(--neon2));
     }
 
     @media(max-width: 768px) {
@@ -183,7 +182,7 @@
   <canvas id="bgCanvas"></canvas>
 
   <header>
-    <h1>Benjamin “Benji” Wederbrand</h1>
+    <h1 class="rainbow-text">Benjamin Wederbrand</h1>
     <nav>
       <a href="#about">Om mig</a>
       <a href="#skills">Kompetens</a>
@@ -194,42 +193,42 @@
   </header>
 
   <section class="hero">
-    <h2>Hej, jag är Benji 👋</h2>
+    <h2 class="rainbow-text">Hej, jag är Benjamin 👋</h2>
     <p id="heroText">En <strong>Software Developer in the making</strong> med passion för att skapa moderna, snygga och responsiva lösningar. Jag bygger min framtid inom utveckling – och det här är min portfolio & CV.</p>
     <a href="#projects" class="btn">Utforska mina projekt</a>
     <a href="#contact" class="btn">Kontakta mig</a>
   </section>
 
   <section id="about">
-    <h3>Om mig</h3>
+    <h3 class="rainbow-text">Om mig</h3>
     <div class="card">
-      <p>Jag heter <strong>Benjamin Wederbrand</strong>, men kallas Benji. Jag satsar på att bli utvecklare och brinner för modern webbutveckling. Här visar jag vem jag är, vad jag kan och vilka projekt jag jobbat med.</p>
+      <p>Jag heter <strong>Benjamin Wederbrand</strong>. Jag satsar på att bli utvecklare och brinner för modern webbutveckling. Här visar jag vem jag är, vad jag kan och vilka projekt jag jobbat med.</p>
     </div>
   </section>
 
   <section id="skills">
-    <h3>Kompetenser</h3>
+    <h3 class="rainbow-text">Kompetenser</h3>
     <div class="grid">
-      <div class="card"><h4>HTML & CSS</h4><p>Responsiva, moderna webbgränssnitt.</p></div>
-      <div class="card"><h4>JavaScript</h4><p>Interaktivitet, logik och webbfunktionalitet.</p></div>
-      <div class="card"><h4>React</h4><p>Komponentbaserade applikationer.</p></div>
-      <div class="card"><h4>Git & GitHub</h4><p>Versionshantering och samarbete.</p></div>
+      <div class="card"><h4 class="rainbow-text">HTML & CSS</h4><p>Responsiva, moderna webbgränssnitt.</p></div>
+      <div class="card"><h4 class="rainbow-text">JavaScript</h4><p>Interaktivitet, logik och webbfunktionalitet.</p></div>
+      <div class="card"><h4 class="rainbow-text">React</h4><p>Komponentbaserade applikationer.</p></div>
+      <div class="card"><h4 class="rainbow-text">Git & GitHub</h4><p>Versionshantering och samarbete.</p></div>
     </div>
   </section>
 
   <section id="experience">
-    <h3>CV</h3>
+    <h3 class="rainbow-text">CV</h3>
     <div class="grid">
       <div class="card">
-        <h4>Utbildning</h4>
+        <h4 class="rainbow-text">Utbildning</h4>
         <p>Frontendutveckling (pågående)<br>Kurser och självstudier inom HTML, CSS, JavaScript och React.</p>
       </div>
       <div class="card">
-        <h4>Arbetslivserfarenhet</h4>
+        <h4 class="rainbow-text">Arbetslivserfarenhet</h4>
         <p>Software Developer in the making<br>Bygger erfarenhet via egna projekt, portfolio och open source.</p>
       </div>
       <div class="card" style="text-align:center;">
-        <h4>CV som PDF</h4>
+        <h4 class="rainbow-text">CV som PDF</h4>
         <p>Ladda ner eller öppna mitt CV här:</p>
         <a href="cv.pdf" class="btn" download>⬇️ Ladda ner CV</a>
         <a href="cv.pdf" class="btn" target="_blank">📄 Visa CV</a>
@@ -238,21 +237,21 @@
   </section>
 
   <section id="projects">
-    <h3>Projekt</h3>
+    <h3 class="rainbow-text">Projekt</h3>
     <div class="grid">
       <div class="card">
-        <h4>Portfolio-sidan</h4>
+        <h4 class="rainbow-text">Portfolio-sidan</h4>
         <p>Denna sida är byggd i en enda HTML-fil med inbäddad CSS och JavaScript för att kunna publiceras enkelt på GitHub Pages.</p>
       </div>
       <div class="card">
-        <h4>Framtida projekt</h4>
+        <h4 class="rainbow-text">Framtida projekt</h4>
         <p>Här kommer jag att visa fler projekt och showcases för att demonstrera mina färdigheter.</p>
       </div>
     </div>
   </section>
 
   <section id="contact">
-    <h3>Kontakt</h3>
+    <h3 class="rainbow-text">Kontakt</h3>
     <div class="card" style="text-align:center;">
       <p>Vill du veta mer eller samarbeta? Hör gärna av dig!</p>
       <p><a href="mailto:Benjiw98@gmail.com" class="btn">✉️ Benjiw98@gmail.com</a></p>
@@ -260,7 +259,7 @@
   </section>
 
   <footer>
-    © <span id="year"></span> Benjamin Wederbrand (Benji) — Portfolio & CV
+    © <span id="year"></span> Benjamin Wederbrand — Portfolio & CV
     <div class="socials">
       <a href="https://github.com/DIN-GITHUB" target="_blank" aria-label="GitHub">
         <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.207 11.387.6.113.793-.262.793-.582 0-.288-.01-1.05-.016-2.06-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.744.082-.729.082-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.605-2.665-.305-5.467-1.332-5.467-5.93 0-1.31.468-2.382 1.236-3.222-.124-.305-.536-1.53.116-3.187 0 0 1.008-.322 3.3 1.23a11.52 11.52 0 0 1 3.003-.404c1.018.005 2.045.138 3.003.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.657.241 2.882.118 3.187.77.84 1.235 1.912 1.235 3.222 0 4.61-2.807 5.622-5.48 5.92.43.372.823 1.104.823 2.226 0 1.607-.015 2.902-.015 3.293 0 .322.192.7.8.58C20.565 21.797 24 17.298 24 12c0-6.63-5.373-12-12-12z"/></svg>
@@ -327,7 +326,7 @@
           let dist = Math.sqrt(dx*dx+dy*dy);
           if(dist < 120){
             ctx.beginPath();
-            ctx.strokeStyle = "rgba(157,78,221,"+(1-dist/120)+")";
+            ctx.strokeStyle = "rgba(255,221,0,"+(1-dist/120)+")";
             ctx.lineWidth = 1;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
