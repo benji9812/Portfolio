@@ -1,286 +1,325 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Benjamin Wederbrand • Portfolio & CV</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benjamin Wederbrand • Portfolio & CV</title>
 
-  <style>
-    * {margin:0; padding:0; box-sizing:border-box;}
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
 
-    html, body {
-      height: 100%;
-    }
+html,body{height:100%;}
 
-    body {
-      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-      background: #000;
-      color: #e5e5e5;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+body{
+font-family:'Segoe UI',Roboto,Arial,sans-serif;
+background:#000;
+color:#e5e5e5;
+line-height:1.6;
+overflow-x:hidden;
+}
 
-    a {color: inherit; text-decoration: none;}
-    h1,h2,h3,h4 {font-weight: 600;}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3,h4{font-weight:600;}
 
-    :root {
-      --neon1: #00f0ff;
-      --neon2: #ff00e6;
-      --neon3: #ffdd00;
-      --neon4: #9d4edd;
-    }
+:root{
+--neon1:#00f0ff;
+--neon2:#ff00e6;
+--neon3:#ffdd00;
+--neon4:#9d4edd;
+}
 
-    .rainbow-text {
-      background: linear-gradient(270deg, var(--neon1), var(--neon2), var(--neon3), var(--neon4));
-      background-size: 800% 800%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: rainbow 10s ease infinite;
-      text-shadow: 0 0 8px rgba(255,255,255,0.5);
-    }
+.rainbow-text{
+background:linear-gradient(270deg,var(--neon1),var(--neon2),var(--neon3),var(--neon4));
+background-size:800% 800%;
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+animation:rainbow 10s ease infinite;
+text-shadow:0 0 8px rgba(255,255,255,0.5);
+}
 
-    @keyframes rainbow {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
+@keyframes rainbow{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
 
-    /* Stabil bakgrund */
-    #bgCanvas {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-      background: #000;
-    }
+#bgCanvas{
+position:fixed;
+inset:0;
+width:100vw;
+height:100vh;
+z-index:-1;
+background:#000;
+}
 
-    header {
-      position: sticky;
-      top: 0;
-      background: rgba(13,13,13,0.85);
-      backdrop-filter: blur(10px);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      z-index: 10;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
+header{
+position:sticky;
+top:0;
+background:rgba(13,13,13,0.85);
+backdrop-filter:blur(10px);
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:1rem 2rem;
+z-index:10;
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
 
-    header h1 {font-size: 1.3rem;}
+header h1{font-size:1.3rem;}
 
-    nav a {
-      margin-left: 1.5rem;
-      font-weight: 500;
-      transition: color .3s;
-    }
+nav a{
+margin-left:1.5rem;
+font-weight:500;
+transition:color .3s;
+}
 
-    nav a:hover {
-      color: var(--neon3);
-      text-shadow: 0 0 5px var(--neon3);
-    }
+nav a:hover{
+color:var(--neon3);
+text-shadow:0 0 5px var(--neon3);
+}
 
-    .hero {
-      min-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 2rem;
-    }
+.hero{
+min-height:90vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:2rem;
+}
 
-    .hero h2 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
+.hero h2{
+font-size:3rem;
+margin-bottom:1rem;
+}
 
-    .hero p {
-      max-width: 700px;
-      font-size: 1.2rem;
-      color: #ccc;
-      margin-bottom: 2rem;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
+.hero p{
+max-width:700px;
+font-size:1.2rem;
+color:#ccc;
+margin-bottom:2rem;
+opacity:0;
+transform:translateY(20px);
+transition:opacity 1s ease,transform 1s ease;
+}
 
-    .hero p.show {
-      opacity:1;
-      transform: translateY(0);
-    }
+.hero p.show{opacity:1;transform:translateY(0);}
 
-    .btn {
-      display: inline-block;
-      padding: 0.8rem 1.6rem;
-      margin: 0.5rem;
-      border-radius: 30px;
-      background: transparent;
-      border: 2px solid var(--neon1);
-      color: var(--neon1);
-      font-weight: bold;
-      text-shadow: 0 0 6px var(--neon1);
-      transition: all 0.3s;
-      cursor: pointer;
-    }
+.btn{
+display:inline-block;
+padding:.8rem 1.6rem;
+margin:.5rem;
+border-radius:30px;
+background:transparent;
+border:2px solid var(--neon1);
+color:var(--neon1);
+font-weight:bold;
+text-shadow:0 0 6px var(--neon1);
+transition:all .3s;
+cursor:pointer;
+}
 
-    .btn:hover {
-      background: var(--neon1);
-      color: #111;
-      box-shadow: 0 0 12px var(--neon1), 0 0 30px var(--neon1);
-    }
+.btn:hover{
+background:var(--neon1);
+color:#111;
+box-shadow:0 0 12px var(--neon1),0 0 30px var(--neon1);
+}
 
-    .btn-download {
-      border-color: var(--neon2);
-      color: var(--neon2);
-      text-shadow: 0 0 6px var(--neon2);
-    }
+.btn-download{
+border-color:var(--neon2);
+color:var(--neon2);
+text-shadow:0 0 6px var(--neon2);
+}
 
-    .btn-download:hover {
-      background: var(--neon2);
-      box-shadow: 0 0 12px var(--neon2), 0 0 30px var(--neon2);
-    }
+.btn-download:hover{
+background:var(--neon2);
+box-shadow:0 0 12px var(--neon2),0 0 30px var(--neon2);
+}
 
-    section {
-      padding: 4rem 2rem;
-      max-width: 1100px;
-      margin: auto;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
+section{
+padding:4rem 2rem;
+max-width:1100px;
+margin:auto;
+opacity:0;
+transform:translateY(30px);
+transition:opacity 1s ease,transform 1s ease;
+}
 
-    section.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+section.show{opacity:1;transform:translateY(0);}
 
-    section h3 {
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 2rem;
-    }
+section h3{
+font-size:2rem;
+text-align:center;
+margin-bottom:2rem;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:2rem;
+}
 
-    .card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 15px;
-      padding: 2rem;
-      backdrop-filter: blur(5px);
-      transition: transform .3s, box-shadow .3s;
-    }
+.card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:15px;
+padding:2rem;
+backdrop-filter:blur(5px);
+transition:transform .3s,box-shadow .3s;
+}
 
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 15px var(--neon2);
-    }
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 0 15px var(--neon2);
+}
 
-    footer {
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      background: #0a0a0a;
-      color: #aaa;
-      font-size: 0.9rem;
-    }
+footer{
+text-align:center;
+padding:2rem;
+border-top:1px solid rgba(255,255,255,0.1);
+background:#0a0a0a;
+color:#aaa;
+font-size:.9rem;
+}
 
-    @media(max-width: 768px) {
-      .hero h2 {font-size: 2rem;}
-      nav a {margin-left: 1rem;}
-    }
-
-  </style>
+@media(max-width:768px){
+.hero h2{font-size:2rem;}
+nav a{margin-left:1rem;}
+}
+</style>
 </head>
+
 <body>
 
 <canvas id="bgCanvas"></canvas>
 
 <header>
-  <h1 class="rainbow-text">Benjamin Wederbrand</h1>
-  <nav>
-    <a href="#about">Om mig</a>
-    <a href="#skills">Kompetens</a>
-    <a href="#experience">CV</a>
-    <a href="#projects">Projekt</a>
-    <a href="#contact">Kontakt</a>
-  </nav>
+<h1 class="rainbow-text">Benjamin Wederbrand</h1>
+<nav>
+<a href="#about">Om mig</a>
+<a href="#skills">Kompetens</a>
+<a href="#experience">CV</a>
+<a href="#projects">Projekt</a>
+<a href="#contact">Kontakt</a>
+</nav>
 </header>
 
-<!-- RESTEN AV DIN HTML ÄR OFÖRÄNDRAD -->
-<!-- Jag har bara tagit bort iframe-previewen i CV-sektionen -->
+<section class="hero">
+<h2 class="rainbow-text">Från Musik till Cloud 👋</h2>
+<p id="heroText">Jag är en <strong>Backend Developer (Cloud) student</strong> som kombinerar kreativt tänkande från musikens värld med teknisk precision i molnet. Välkommen till min digitala spelplan.</p>
+<div>
+<a href="#projects" class="btn">Utforska mina projekt</a>
+<a href="#experience" class="btn">Visa mitt CV</a>
+</div>
+</section>
 
-<!-- SCRIPT FIXAT -->
+<section id="about">
+<h3 class="rainbow-text">Om mig</h3>
+<div class="card">
+<p>Mitt namn är <strong>Benjamin Wederbrand</strong>. Jag är 27 år och studerar Backend Developer Cloud (2025–2027).</p>
+</div>
+</section>
+
+<section id="skills">
+<h3 class="rainbow-text">Teknisk Expertis</h3>
+<div class="grid">
+<div class="card">
+<h4 class="rainbow-text">Backend</h4>
+<p>C#, .NET, SQL, Entity Framework</p>
+</div>
+<div class="card">
+<h4 class="rainbow-text">Cloud</h4>
+<p>Azure, Docker, CI/CD</p>
+</div>
+</div>
+</section>
+
+<section id="experience">
+<h3 class="rainbow-text">Mitt CV</h3>
+<div style="text-align:center;margin-top:2rem;">
+<a href="cv.pdf" target="_blank" class="btn">📄 Visa CV</a>
+<a href="cv.pdf" download class="btn btn-download">⬇️ Ladda ner</a>
+</div>
+</section>
+
+<section id="projects">
+<h3 class="rainbow-text">Projekt</h3>
+<div class="card">
+<p>Se mina projekt på GitHub.</p>
+<a href="https://github.com/benji9812" target="_blank" class="btn">GitHub</a>
+</div>
+</section>
+
+<section id="contact">
+<h3 class="rainbow-text">Kontakt</h3>
+<div class="card" style="text-align:center;">
+<a href="mailto:Benjiw98@gmail.com" class="btn">✉️ Skicka mail</a>
+</div>
+</section>
+
+<footer>
+© <span id="year"></span> Benjamin Wederbrand
+</footer>
+
 <script>
-document.getElementById("year")?.textContent = new Date().getFullYear();
+document.getElementById("year").textContent=new Date().getFullYear();
 
-const sections = document.querySelectorAll("section");
-const heroText = document.getElementById("heroText");
+const sections=document.querySelectorAll("section");
+const heroText=document.getElementById("heroText");
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add("show");
-    }
-  });
-}, {threshold: 0.1});
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){entry.target.classList.add("show");}
+});
+},{threshold:.1});
 
-sections.forEach(sec => observer.observe(sec));
+sections.forEach(sec=>observer.observe(sec));
 
-window.addEventListener("load", () => {
-  setTimeout(()=> heroText?.classList.add("show"), 500);
+window.addEventListener("load",()=>{
+setTimeout(()=>heroText.classList.add("show"),500);
 });
 
-const canvas = document.getElementById("bgCanvas");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("bgCanvas");
+const ctx=canvas.getContext("2d");
 
-let w, h, particles;
-const isMobile = window.innerWidth < 768;
-const particleCount = isMobile ? 40 : 80;
+let w,h,particles;
 
 function init(){
-  w = canvas.width = window.screen.width;
-  h = canvas.height = window.screen.height;
+w=canvas.width=window.screen.width;
+h=canvas.height=window.screen.height;
 
-  particles = [];
-  for(let i=0; i<particleCount; i++){
-    particles.push({
-      x: Math.random()*w,
-      y: Math.random()*h,
-      vx: (Math.random()-0.5)*0.6,
-      vy: (Math.random()-0.5)*0.6,
-      radius: Math.random()*2+1,
-      color: Math.random()>0.5 ? "rgba(0,240,255,0.8)" : "rgba(255,0,230,0.8)"
-    });
-  }
+const isMobile=window.innerWidth<768;
+const particleCount=isMobile?40:80;
+
+particles=[];
+for(let i=0;i<particleCount;i++){
+particles.push({
+x:Math.random()*w,
+y:Math.random()*h,
+vx:(Math.random()-0.5)*0.6,
+vy:(Math.random()-0.5)*0.6,
+radius:Math.random()*2+1,
+color:Math.random()>0.5?"rgba(0,240,255,0.8)":"rgba(255,0,230,0.8)"
+});
+}
 }
 
 function draw(){
-  ctx.clearRect(0,0,w,h);
-
-  for(let p of particles){
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
-    ctx.fillStyle = p.color;
-    ctx.fill();
-
-    p.x += p.vx;
-    p.y += p.vy;
-
-    if(p.x<0||p.x>w) p.vx*=-1;
-    if(p.y<0||p.y>h) p.vy*=-1;
-  }
-
-  requestAnimationFrame(draw);
+ctx.clearRect(0,0,w,h);
+for(let p of particles){
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+ctx.fillStyle=p.color;
+ctx.fill();
+p.x+=p.vx;
+p.y+=p.vy;
+if(p.x<0||p.x>w)p.vx*=-1;
+if(p.y<0||p.y>h)p.vy*=-1;
+}
+requestAnimationFrame(draw);
 }
 
-window.addEventListener("resize", init);
+window.addEventListener("resize",init);
 init();
 draw();
 </script>
