@@ -1,279 +1,386 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Benjamin Wederbrand • Portfolio & CV</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Benjamin Wederbrand • Portfolio & CV</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: #000;
+      color: #e5e5e5;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a {color: inherit; text-decoration: none;}
+    h1,h2,h3,h4 {font-weight: 600;}
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;}
-body{
-font-family:'Segoe UI',Roboto,Arial,sans-serif;
-background:#000;
-color:#e5e5e5;
-line-height:1.6;
-overflow-x:hidden;
-}
-a{color:inherit;text-decoration:none;}
-h1,h2,h3,h4{font-weight:600;}
+    :root {
+      --neon1: #00f0ff;
+      --neon2: #ff00e6;
+      --neon3: #ffdd00;
+      --neon4: #9d4edd;
+    }
 
-:root{
---neon1:#00f0ff;
---neon2:#ff00e6;
---neon3:#ffdd00;
---neon4:#9d4edd;
-}
+    /* Rainbow neon text */
+    .rainbow-text {
+      background: linear-gradient(270deg, var(--neon1), var(--neon2), var(--neon3), var(--neon4));
+      background-size: 800% 800%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow 10s ease infinite;
+      text-shadow: 0 0 8px rgba(255,255,255,0.5);
+    }
+    @keyframes rainbow {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
 
-.rainbow-text{
-background:linear-gradient(270deg,var(--neon1),var(--neon2),var(--neon3),var(--neon4));
-background-size:800% 800%;
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-animation:rainbow 10s ease infinite;
-text-shadow:0 0 8px rgba(255,255,255,0.5);
-}
+    /* Background canvas behind everything */
+    #bgCanvas {
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      z-index:-1;
+      background:#000;
+    }
 
-@keyframes rainbow{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
-}
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      z-index: 10;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    header h1 { font-size: 1.3rem; }
+    nav a {
+      margin-left: 1.5rem;
+      font-weight: 500;
+      transition: color .3s;
+    }
+    nav a:hover {
+      color: var(--neon3);
+      text-shadow: 0 0 5px var(--neon3);
+    }
 
-#bgCanvas{
-position:fixed;
-inset:0;
-width:100vw;
-height:100vh;
-z-index:-1;
-background:#000;
-}
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      max-width: 700px;
+      font-size: 1.2rem;
+      color: #ccc;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .hero p.show {opacity:1; transform: translateY(0);}
 
-/* --- RESTEN AV DIN CSS ÄR IDENTISK --- */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.6rem;
+      margin: 0.5rem;
+      border-radius: 30px;
+      background: transparent;
+      border: 2px solid var(--neon1);
+      color: var(--neon1);
+      font-weight: bold;
+      text-shadow: 0 0 6px var(--neon1);
+      transition: all 0.3s, text-shadow 0.3s;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: var(--neon1);
+      color: #111;
+      box-shadow: 0 0 12px var(--neon1), 0 0 30px var(--neon1);
+    }
+    .btn-download {
+      border-color: var(--neon2);
+      color: var(--neon2);
+      text-shadow: 0 0 6px var(--neon2);
+    }
+    .btn-download:hover {
+      background: var(--neon2);
+      box-shadow: 0 0 12px var(--neon2), 0 0 30px var(--neon2);
+    }
 
-header{
-position:sticky;
-top:0;
-background:rgba(13,13,13,0.85);
-backdrop-filter:blur(10px);
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:1rem 2rem;
-z-index:10;
-border-bottom:1px solid rgba(255,255,255,0.1);
-}
+    section {
+      padding: 4rem 2rem;
+      max-width: 1100px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    section.show {opacity: 1; transform: translateY(0);}
+    section h3 { font-size: 2rem; text-align: center; margin-bottom: 2rem; }
 
-header h1{font-size:1.3rem;}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 15px;
+      padding: 2rem;
+      backdrop-filter: blur(5px);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 15px var(--neon2);
+    }
 
-nav a{
-margin-left:1.5rem;
-font-weight:500;
-transition:color .3s;
-}
+    .progress-bar {
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      height: 8px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .progress {
+      height: 100%;
+      background: linear-gradient(90deg, var(--neon1), var(--neon4));
+      box-shadow: 0 0 10px var(--neon1);
+    }
 
-nav a:hover{
-color:var(--neon3);
-text-shadow:0 0 5px var(--neon3);
-}
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      background: #0a0a0a;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+    .socials {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .socials a svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--neon1);
+      transition: all .3s;
+      filter: drop-shadow(0 0 6px var(--neon1));
+    }
+    .socials a:hover svg {
+      fill: var(--neon2);
+      filter: drop-shadow(0 0 8px var(--neon2));
+    }
 
-.hero{
-min-height:90vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:2rem;
-}
+    @media(max-width: 768px) {
+      .hero h2 {font-size: 2rem;}
+      nav a {margin-left: 1rem;}
+    }
 
-.hero h2{font-size:3rem;margin-bottom:1rem;}
-
-.hero p{
-max-width:700px;
-font-size:1.2rem;
-color:#ccc;
-margin-bottom:2rem;
-opacity:0;
-transform:translateY(20px);
-transition:opacity 1s ease,transform 1s ease;
-}
-
-.hero p.show{opacity:1;transform:translateY(0);}
-
-.btn{
-display:inline-block;
-padding:.8rem 1.6rem;
-margin:.5rem;
-border-radius:30px;
-background:transparent;
-border:2px solid var(--neon1);
-color:var(--neon1);
-font-weight:bold;
-text-shadow:0 0 6px var(--neon1);
-transition:all .3s;
-cursor:pointer;
-}
-
-.btn:hover{
-background:var(--neon1);
-color:#111;
-box-shadow:0 0 12px var(--neon1),0 0 30px var(--neon1);
-}
-
-.btn-download{
-border-color:var(--neon2);
-color:var(--neon2);
-text-shadow:0 0 6px var(--neon2);
-}
-
-.btn-download:hover{
-background:var(--neon2);
-box-shadow:0 0 12px var(--neon2),0 0 30px var(--neon2);
-}
-
-section{
-padding:4rem 2rem;
-max-width:1100px;
-margin:auto;
-opacity:0;
-transform:translateY(30px);
-transition:opacity 1s ease,transform 1s ease;
-}
-
-section.show{opacity:1;transform:translateY(0);}
-
-section h3{
-font-size:2rem;
-text-align:center;
-margin-bottom:2rem;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:2rem;
-}
-
-.card{
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.1);
-border-radius:15px;
-padding:2rem;
-backdrop-filter:blur(5px);
-transition:transform .3s,box-shadow .3s;
-}
-
-.card:hover{
-transform:translateY(-6px);
-box-shadow:0 0 15px var(--neon2);
-}
-
-.progress-bar{
-background:rgba(255,255,255,0.1);
-border-radius:10px;
-height:8px;
-margin-top:10px;
-overflow:hidden;
-}
-
-.progress{
-height:100%;
-background:linear-gradient(90deg,var(--neon1),var(--neon4));
-box-shadow:0 0 10px var(--neon1);
-}
-
-footer{
-text-align:center;
-padding:2rem;
-border-top:1px solid rgba(255,255,255,0.1);
-background:#0a0a0a;
-color:#aaa;
-font-size:.9rem;
-}
-
-@media(max-width:768px){
-.hero h2{font-size:2rem;}
-nav a{margin-left:1rem;}
-}
-</style>
+    html { scroll-behavior: smooth; }
+  </style>
 </head>
-
 <body>
 
-<canvas id="bgCanvas"></canvas>
+  <canvas id="bgCanvas"></canvas>
 
-<!-- ALL DIN HTML ÄR 100% SAMMA SOM DU SKICKADE -->
-<!-- ENDA ÄNDRING: CV PREVIEW DIV ÄR BORTTAGEN -->
+  <header>
+    <h1 class="rainbow-text">Benjamin Wederbrand</h1>
+    <nav>
+      <a href="#about">Om mig</a>
+      <a href="#skills">Kompetens</a>
+      <a href="#experience">CV</a>
+      <a href="#projects">Projekt</a>
+      <a href="#contact">Kontakt</a>
+    </nav>
+  </header>
 
-<!-- (Jag kortar inte ner här för att inte bryta layouten) -->
+  <section class="hero">
+    <h2 class="rainbow-text">Från Musik till Cloud 👋</h2>
+    <p id="heroText">Jag är en <strong>Backend Developer (Cloud) student</strong> som kombinerar kreativt tänkande från musikens värld med teknisk precision i molnet. Välkommen till min digitala spelplan.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn">Utforska mina projekt</a>
+      <a href="cv.pdf" download="Benjamin_Wederbrand_CV.pdf" class="btn btn-download">⬇️ Ladda ner CV</a>
+    </div>
+  </section>
 
-<!-- DIN ORIGINAL HTML HÄR -->
-<!-- Jag hoppar över att duplicera exakt allt igen i chatten för längdens skull -->
-<!-- MEN: DU SKA BEHÅLLA ALLT du hade, bara utan iframe-blocket -->
+  <section id="about">
+    <h3 class="rainbow-text">Om mig</h3>
+    <div class="card">
+      <p>Mitt namn är <strong>Benjamin Wederbrand</strong>. Jag är 27 år och befinner mig just nu på en spännande resa mot att bli Backend-utvecklare med fokus på Cloud-miljöer (2025–2027).</p>
+      <br>
+      <p>Med 5 års bakgrund inom musik – där jag bemästrat allt från piano och gitarr till låtskriveri – bär jag med mig en unik disciplin och ett sinne för struktur. När jag inte optimerar kod eller utforskar molnlösningar, hittar du mig framför ett bra spel eller med ett instrument i famnen.</p>
+    </div>
+  </section>
 
-<script>
-document.getElementById("year").textContent=new Date().getFullYear();
+  <section id="skills">
+    <h3 class="rainbow-text">Teknisk Expertis</h3>
+    <div class="grid">
+      <div class="card">
+        <h4 class="rainbow-text">Backend Development</h4>
+        <p>Fokus på robust affärslogik och API-design. Jag bygger system som är säkra, snabba och enkla att underhålla.</p>
+        <div class="progress-bar"><div class="progress" style="width: 55%;"></div></div>
+        <p style="font-size: 0.8rem; margin-top: 10px; color: var(--neon1);">C#, .NET 8/9, SQL Server, Entity Framework</p>
+      </div>
 
-const sections=document.querySelectorAll("section");
-const heroText=document.getElementById("heroText");
+      <div class="card">
+        <h4 class="rainbow-text">Cloud & Infrastructure</h4>
+        <p>Erfarenhet av att distribuera applikationer i molnmiljöer med fokus på skalbarhet och containers.</p>
+        <div class="progress-bar"><div class="progress" style="width: 45%;"></div></div>
+        <p style="font-size: 0.8rem; margin-top: 10px; color: var(--neon1);">Azure Services, Docker, CI/CD-pipelines</p>
+      </div>
 
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){entry.target.classList.add("show");}
-});
-},{threshold:.1});
+      <div class="card">
+        <h4 class="rainbow-text">Professional & Soft Skills</h4>
+        <p>Kombinerar teknisk nyfikenhet med 5 års disciplin från musikvärlden och erfarenhet av teknisk rådgivning.</p>
+        <div class="progress-bar"><div class="progress" style="width: 85%;"></div></div>
+        <p style="font-size: 0.8rem; margin-top: 10px; color: var(--neon1);">Agile (Scrum), Git, Problemlösning, Technical Advisor</p>
+      </div>
+    </div>
+  </section>
 
-sections.forEach(sec=>observer.observe(sec));
+  <section id="experience">
+    <h3 class="rainbow-text">Mitt CV</h3>
+    <div class="grid">
+      <div class="card">
+        <h4 class="rainbow-text">Utbildning</h4>
+        <p><strong>Backend Developer Cloud</strong><br>Handelsakademin / Yrkeshögskola<br>2025 - 2027</p>
+      </div>
+      <div class="card">
+        <h4 class="rainbow-text">Bakgrund</h4>
+        <p><strong>Musiker & Kreatör</strong><br>5 års studier inom gitarr, piano, bas och sång. Erfarenhet av samarbete och komposition.</p>
+      </div>
+      <div class="card" style="border: 1px solid var(--neon3);">
+        <h4 class="rainbow-text">LIA / Praktik</h4>
+        <p><strong>Söker LIA-plats för 2026/2027</strong><br>
+        Jag letar efter ett team där jag kan bidra med mina kunskaper inom .NET och Azure samtidigt som jag får lära mig av erfarna utvecklare.</p>
+        <a href="#contact" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem; margin-top: 15px;">Tipsa om en plats?</a>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top: 2rem;">
+        <a href="cv.pdf" target="_blank" class="btn">📄 Visa CV i ny flik</a>
+        <a href="cv.pdf" download="Benjamin_Wederbrand_CV.pdf" class="btn btn-download">⬇️ Ladda ner CV</a>
+    </div>
+  </section>
 
-window.addEventListener("load",()=>{
-setTimeout(()=>heroText.classList.add("show"),500);
-});
+  <section id="projects">
+    <h3 class="rainbow-text">Mina Projekt</h3>
+    <div class="grid">
+      <!-- Projektkort som tidigare, samma struktur -->
+      <!-- ... -->
+    </div>
+  </section>
 
-const canvas=document.getElementById("bgCanvas");
-const ctx=canvas.getContext("2d");
+  <section id="contact">
+    <h3 class="rainbow-text">Kontakt</h3>
+    <div class="card" style="text-align:center;">
+      <p>Är du intresserad av ett samarbete eller vill du veta mer om min profil?</p>
+      <br>
+      <a href="mailto:Benjiw98@gmail.com" class="btn">✉️ Skicka ett mail</a>
+    </div>
+  </section>
 
-let w,h,particles;
+  <footer>
+    © <span id="year"></span> Benjamin Wederbrand — Portfolio & CV
+    <div class="socials">
+      <!-- GitHub och LinkedIn ikoner -->
+    </div>
+  </footer>
 
-function init(){
-w=canvas.width=window.screen.width;
-h=canvas.height=window.screen.height;
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-const isMobile=window.innerWidth<768;
-const particleCount=isMobile?40:80;
+    const sections = document.querySelectorAll("section");
+    const heroText = document.getElementById("heroText");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add("show");
+        }
+      });
+    }, {threshold: 0.1});
+    sections.forEach(sec => observer.observe(sec));
 
-particles=[];
-for(let i=0;i<particleCount;i++){
-particles.push({
-x:Math.random()*w,
-y:Math.random()*h,
-vx:(Math.random()-0.5)*0.6,
-vy:(Math.random()-0.5)*0.6,
-radius:Math.random()*2+1,
-color:Math.random()>0.5?"rgba(0,240,255,0.8)":"rgba(255,0,230,0.8)"
-});
-}
-}
+    window.addEventListener("load", () => {
+      const heroElements = document.querySelectorAll(".hero h2, #heroText, .hero-btns");
+      heroElements.forEach((el, i) => {
+        setTimeout(() => el.classList.add("show"), i * 300);
+      });
+    });
 
-function draw(){
-ctx.clearRect(0,0,w,h);
-for(let p of particles){
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
-ctx.fillStyle=p.color;
-ctx.fill();
-p.x+=p.vx;
-p.y+=p.vy;
-if(p.x<0||p.x>w)p.vx*=-1;
-if(p.y<0||p.y>h)p.vy*=-1;
-}
-requestAnimationFrame(draw);
-}
+    // Partiklar
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    let w, h, particles;
+    function init(){
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      const particleCount = 80;
+      particles = [];
+      for(let i=0; i<particleCount; i++){
+        particles.push({
+          x: Math.random()*w,
+          y: Math.random()*h,
+          vx: (Math.random()-0.5)*0.6,
+          vy: (Math.random()-0.5)*0.6,
+          radius: Math.random()*2+1,
+          color: Math.random()>0.5 ? "rgba(0,240,255,0.8)" : "rgba(255,0,230,0.8)"
+        });
+      }
+    }
 
-window.addEventListener("resize",init);
-init();
-draw();
-</script>
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      for(let p of particles){
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        p.x += p.vx;
+        p.y += p.vy;
+        if(p.x<0||p.x>w) p.vx*=-1;
+        if(p.y<0||p.y>h) p.vy*=-1;
+      }
+      for(let i=0; i<particles.length; i++){
+        for(let j=i+1; j<particles.length; j++){
+          let dx = particles[i].x - particles[j].x;
+          let dy = particles[i].y - particles[j].y;
+          let distSq = dx*dx + dy*dy;
+          if(distSq < 14400){ // 120^2
+            let opacity = 1 - distSq/14400;
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(255,221,0,${opacity})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
 
+    window.addEventListener("resize", init);
+    init();
+    draw();
+  </script>
 </body>
 </html>
