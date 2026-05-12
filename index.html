@@ -27,6 +27,7 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
+
     a {color: inherit; text-decoration: none;}
     h1,h2,h3,h4 {font-weight: 600;}
 
@@ -60,9 +61,16 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 1rem;
       padding: 1rem 2rem;
       z-index: 10;
       border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
     }
     header h1 {
       font-size: 1.3rem;
@@ -81,6 +89,39 @@
     nav a:hover {
       color: var(--neon3);
       text-shadow: 0 0 5px var(--neon3);
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.25rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(6px);
+      flex-shrink: 0;
+    }
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      color: #d7d7d7;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all .25s ease;
+    }
+    .lang-btn:hover {
+      color: var(--neon3);
+    }
+    .lang-btn.active {
+      color: #111;
+      background: var(--neon1);
+      box-shadow: 0 0 12px rgba(0,240,255,0.4);
+      text-shadow: none;
     }
 
     .hero {
@@ -283,15 +324,18 @@
       filter: drop-shadow(0 0 8px var(--neon2));
     }
 
-    @media(max-width: 768px) {
+    @media(max-width: 900px) {
       :root {
-        --header-offset: 140px;
+        --header-offset: 160px;
       }
-      .hero h2 {font-size: 2rem;}
       header {
         flex-direction: column;
-        gap: 0.85rem;
-        padding: 1rem 1rem;
+        align-items: stretch;
+        padding: 1rem;
+      }
+      .header-left {
+        flex-direction: column;
+        align-items: center;
       }
       nav {
         width: 100%;
@@ -308,6 +352,13 @@
         border-color: rgba(255,221,0,0.35);
         background: rgba(255,221,0,0.06);
       }
+      .lang-toggle {
+        align-self: center;
+      }
+    }
+
+    @media(max-width: 768px) {
+      .hero h2 {font-size: 2rem;}
       .hero-btns {
         display: flex;
         flex-direction: column;
@@ -324,23 +375,30 @@
   <canvas id="bgCanvas"></canvas>
 
   <header>
-    <h1 class="rainbow-text">Benjamin Wederbrand</h1>
-    <nav>
-      <a href="#about">Om mig</a>
-      <a href="#skills">Kompetens</a>
-      <a href="#focus">Fokus</a>
-      <a href="#experience">CV</a>
-      <a href="#projects">Projekt</a>
-      <a href="#contact">Kontakt</a>
-    </nav>
+    <div class="header-left">
+      <h1 class="rainbow-text">Benjamin Wederbrand</h1>
+      <nav>
+        <a href="#about" data-i18n="navAbout">Om mig</a>
+        <a href="#skills" data-i18n="navSkills">Kompetens</a>
+        <a href="#focus" data-i18n="navFocus">Fokus</a>
+        <a href="#experience" data-i18n="navExperience">CV</a>
+        <a href="#projects" data-i18n="navProjects">Projekt</a>
+        <a href="#contact" data-i18n="navContact">Kontakt</a>
+      </nav>
+    </div>
+
+    <div class="lang-toggle" aria-label="Language selector">
+      <button class="lang-btn active" data-lang-btn="sv" aria-pressed="true">SV</button>
+      <button class="lang-btn" data-lang-btn="en" aria-pressed="false">EN</button>
+    </div>
   </header>
 
   <section class="hero">
-    <h2 class="rainbow-text">Från kreativitet till backend & cloud 👋</h2>
-    <p id="heroText">Jag är en utvecklarstudent med fokus på backend och cloud som bygger praktisk mjukvara — från API:er och databaser till desktopappar, webblösningar och kreativa verktyg.</p>
+    <h2 class="rainbow-text" data-i18n="heroTitle">Från kreativitet till backend & cloud 👋</h2>
+    <p id="heroText" data-i18n="heroText">Jag är en utvecklarstudent med fokus på backend och cloud som bygger praktisk mjukvara — från API:er och databaser till desktopappar, webblösningar och kreativa verktyg.</p>
     <div class="hero-btns">
-      <a href="#projects" class="btn">Utforska mina projekt</a>
-      <a href="#experience" class="btn">Visa mitt CV</a>
+      <a href="#projects" class="btn" data-i18n="heroBtnProjects">Utforska mina projekt</a>
+      <a href="#experience" class="btn" data-i18n="heroBtnCv">Visa mitt CV</a>
     </div>
     <div class="hero-highlights">
       <span class="tag">C# / .NET</span>
@@ -351,35 +409,35 @@
   </section>
 
   <section id="about">
-    <h3 class="rainbow-text">Om mig</h3>
+    <h3 class="rainbow-text" data-i18n="aboutTitle">Om mig</h3>
     <div class="card">
-      <p>Mitt namn är <strong>Benjamin Wederbrand</strong>. Jag studerar backendutveckling med fokus på cloud och drivs av att bygga lösningar som är strukturerade, användbara och enkla att vidareutveckla.</p>
+      <p data-i18n="aboutP1">Mitt namn är <strong>Benjamin Wederbrand</strong>. Jag studerar backendutveckling med fokus på cloud och drivs av att bygga lösningar som är strukturerade, användbara och enkla att vidareutveckla.</p>
       <br>
-      <p>Min bakgrund inom musik har gett mig disciplin, tålamod och kreativt tänkande, vilket jag tar med mig in i utveckling. När jag inte kodar gillar jag att utforska nya idéer, förbättra workflows och bygga projekt som löser riktiga problem.</p>
+      <p data-i18n="aboutP2">Min bakgrund inom musik har gett mig disciplin, tålamod och kreativt tänkande, vilket jag tar med mig in i utveckling. När jag inte kodar gillar jag att utforska nya idéer, förbättra workflows och bygga projekt som löser riktiga problem.</p>
     </div>
   </section>
 
   <section id="skills">
-    <h3 class="rainbow-text">Kompetens</h3>
-    <p class="section-intro">Det här är områdena jag arbetar mest med just nu.</p>
+    <h3 class="rainbow-text" data-i18n="skillsTitle">Kompetens</h3>
+    <p class="section-intro" data-i18n="skillsIntro">Det här är områdena jag arbetar mest med just nu.</p>
     <div class="grid">
       <div class="card">
-        <h4 class="rainbow-text">Backend Development</h4>
-        <p>Fokus på affärslogik, API-design och databasdrivna lösningar. Jag gillar att bygga system som är tydliga, användbara och enkla att underhålla.</p>
+        <h4 class="rainbow-text" data-i18n="skillsCard1Title">Backend Development</h4>
+        <p data-i18n="skillsCard1Text">Fokus på affärslogik, API-design och databasdrivna lösningar. Jag gillar att bygga system som är tydliga, användbara och enkla att underhålla.</p>
         <div class="progress-bar"><div class="progress" style="width: 68%;"></div></div>
         <p class="stack-note">C#, .NET, SQL Server, Entity Framework, REST API</p>
       </div>
 
       <div class="card">
-        <h4 class="rainbow-text">Cloud & Infrastructure</h4>
-        <p>Erfarenhet av deployment, containers och moderna arbetsflöden med fokus på att förstå hela vägen från kod till körande lösning.</p>
+        <h4 class="rainbow-text" data-i18n="skillsCard2Title">Cloud & Infrastructure</h4>
+        <p data-i18n="skillsCard2Text">Erfarenhet av deployment, containers och moderna arbetsflöden med fokus på att förstå hela vägen från kod till körande lösning.</p>
         <div class="progress-bar"><div class="progress" style="width: 55%;"></div></div>
         <p class="stack-note">Azure, Docker, CI/CD-pipelines, GitHub Actions</p>
       </div>
 
       <div class="card">
-        <h4 class="rainbow-text">Frontend & Interfaces</h4>
-        <p>Jag arbetar även med frontend och UI när projektet kräver det, både i webblösningar och i desktopappar där användarflödet spelar stor roll.</p>
+        <h4 class="rainbow-text" data-i18n="skillsCard3Title">Frontend & Interfaces</h4>
+        <p data-i18n="skillsCard3Text">Jag arbetar även med frontend och UI när projektet kräver det, både i webblösningar och i desktopappar där användarflödet spelar stor roll.</p>
         <div class="progress-bar"><div class="progress" style="width: 55%;"></div></div>
         <p class="stack-note">React, TypeScript, JavaScript, Vite, WPF</p>
       </div>
@@ -387,124 +445,129 @@
   </section>
 
   <section id="focus">
-    <h3 class="rainbow-text">Nuvarande fokus</h3>
+    <h3 class="rainbow-text" data-i18n="focusTitle">Nuvarande fokus</h3>
     <div class="grid">
       <div class="card">
-        <h4 class="rainbow-text">Det jag bygger mot just nu</h4>
-        <p>.NET-backend, API:er, databaser, cloudrelaterade arbetsflöden, desktopappar i WPF och fullstackprojekt där backend kopplas ihop med frontend och deployment.</p>
+        <h4 class="rainbow-text" data-i18n="focusCardTitle">Det jag bygger mot just nu</h4>
+        <p data-i18n="focusCardText">.NET-backend, API:er, databaser, cloudrelaterade arbetsflöden, desktopappar i WPF och fullstackprojekt där backend kopplas ihop med frontend och deployment.</p>
       </div>
     </div>
   </section>
 
   <section id="experience">
-    <h3 class="rainbow-text">Mitt CV</h3>
-    <p class="section-intro">En kort överblick av utbildning, bakgrund och vad jag söker just nu.</p>
+    <h3 class="rainbow-text" data-i18n="experienceTitle">Mitt CV</h3>
+    <p class="section-intro" data-i18n="experienceIntro">En kort överblick av utbildning, bakgrund och vad jag söker just nu.</p>
     <div class="grid">
       <div class="card">
-        <h4 class="rainbow-text">Utbildning</h4>
-        <p><strong>Backend Developer med cloudfokus</strong><br>NBI Handelsakademin / Yrkeshögskola<br>2025 - 2027</p>
+        <h4 class="rainbow-text" data-i18n="eduTitle">Utbildning</h4>
+        <p data-i18n="eduText"><strong>Backend Developer med cloudfokus</strong><br>NBI Handelsakademin / Yrkeshögskola<br>2025 - 2027</p>
       </div>
       <div class="card">
-        <h4 class="rainbow-text">Bakgrund</h4>
-        <p><strong>Musik, service & problemlösning</strong><br>Bakgrund inom musik, kundservice och praktisk problemlösning — erfarenheter som stärkt ansvar, kommunikation och samarbete.</p>
+        <h4 class="rainbow-text" data-i18n="backgroundTitle">Bakgrund</h4>
+        <p data-i18n="backgroundText"><strong>Musik, service & problemlösning</strong><br>Bakgrund inom musik, service och kundkontakt har stärkt min kommunikation, disciplin och förmåga att arbeta strukturerat med människor och problem i fokus.</p>
       </div>
-      <div class="card" style="border: 1px solid var(--neon3);">
-        <h4 class="rainbow-text">Nästa steg</h4>
-        <p><strong>Fortsatt utveckling inom backend och cloud</strong><br>Jag söker sammanhang där jag kan fortsätta växa inom .NET, molntjänster och applikationsutveckling tillsammans med andra utvecklare.</p>
-        <a href="#contact" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem; margin-top: 15px;">Kontakta mig</a>
+      <div class="card">
+        <h4 class="rainbow-text" data-i18n="nextStepTitle">Nästa steg</h4>
+        <p data-i18n="nextStepText"><strong>Praktik, samarbete och fortsatt utveckling</strong><br>Jag söker möjligheter där jag kan fortsätta utvecklas inom .NET, backend och cloud, samtidigt som jag bidrar med driv, nyfikenhet och ett starkt intresse för att bygga användbara lösningar.</p>
+        <a href="#contact" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem; margin-top: 15px;" data-i18n="contactBtnSmall">Kontakta mig</a>
       </div>
     </div>
 
     <div class="button-row">
-      <a href="cv.pdf" target="_blank" rel="noopener noreferrer" class="btn">📄 Visa CV i ny flik</a>
-      <a href="cv.pdf" download="Benjamin_Wederbrand_CV.pdf" class="btn btn-download">⬇️ Ladda ner CV</a>
+      <a href="cv.pdf" target="_blank" rel="noopener noreferrer" class="btn" data-i18n="viewCvBtn">📄 Visa CV i ny flik</a>
+      <a href="cv.pdf" download="Benjamin_Wederbrand_CV.pdf" class="btn btn-download" data-i18n="downloadCvBtn">⬇️ Ladda ner CV</a>
     </div>
   </section>
 
   <section id="projects">
-    <h3 class="rainbow-text">Mina Projekt</h3>
-    <p class="section-intro">Ett urval av projekt som visar bredd över backend, desktop, web, automation och samarbete.</p>
+    <h3 class="rainbow-text" data-i18n="projectsTitle">Mina Projekt</h3>
+    <p class="section-intro" data-i18n="projectsIntro">Ett urval av projekt som visar bredd över backend, desktop, web, automation och samarbete.</p>
     <div class="grid">
 
       <div class="card featured-card project-card">
-        <span class="featured-label">Featured</span>
+        <span class="featured-label" data-i18n="featuredLabel">Featured</span>
         <h4 class="rainbow-text">AI Music Workstation</h4>
-        <p>Ett AI-drivet musikverktyg som separerar stems, analyserar ackord och tempo och låter dig arbeta mer flexibelt med musikaliska workflows.</p>
-        <p style="font-size: 0.8rem; opacity: 0.85; margin-top: 10px;">Byggd som C# WPF-app med Python FastAPI-backend och Swagger-dokumenterade analysendpoints.</p>
+        <p data-i18n="project1Text1">Ett AI-drivet musikverktyg för att separera stems, analysera ackord och tempo samt ge mer flexibla musikaliska arbetsflöden.</p>
+        <p style="font-size: 0.8rem; opacity: 0.85; margin-top: 10px;" data-i18n="project1Text2">Byggt som en C# WPF-app med Python FastAPI-backend och Swagger-dokumenterade analysendpoints.</p>
         <div class="chip-wrap">
           <span class="chip">C# / WPF</span>
           <span class="chip">Python</span>
           <span class="chip">AI Audio</span>
           <span class="chip">REST API</span>
         </div>
-        <a href="https://github.com/benji9812/ai-music-workstation" target="_blank" rel="noopener noreferrer" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem;">Visa Repo</a>
+        <a href="https://github.com/benji9812/ai-music-workstation" target="_blank" rel="noopener noreferrer" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem;" data-i18n="repoBtn">Visa Repo</a>
       </div>
 
       <div class="card project-card">
         <h4 class="rainbow-text">Frostheim Saga</h4>
-        <p>Ett spelprojekt där jag utforskar spelmekanik, logik och struktur. Projektet visar hur jag arbetar med systems thinking och kodorganisation.</p>
+        <p data-i18n="project2Text1">Ett spelprojekt där fokus ligger på spelmekanik, kodstruktur och logisk uppbyggnad.</p>
+        <p style="font-size: 0.8rem; opacity: 0.85; margin-top: 10px;" data-i18n="project2Text2">Projektet visar hur komplex funktionalitet kan organiseras på ett tydligt och hållbart sätt.</p>
         <div class="chip-wrap">
           <span class="chip">C# / Unity</span>
           <span class="chip">Game Logic</span>
         </div>
-        <a href="https://github.com/benji9812/FrostheimSaga" target="_blank" rel="noopener noreferrer" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem;">Visa Repo</a>
+        <a href="https://github.com/benji9812/FrostheimSaga" target="_blank" rel="noopener noreferrer" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem;" data-i18n="repoBtn">Visa Repo</a>
       </div>
 
       <div class="card project-card">
         <h4 class="rainbow-text">Gothenburg Bar Map</h4>
-        <p>En interaktiv karta över Göteborgs nattliv. Ett praktiskt projekt som kombinerar frontend-visualisering med externa datatjänster och användarfokus.</p>
+        <p data-i18n="project3Text1">En interaktiv karta över Göteborgs nattliv som kombinerar frontend-visualisering med externa datatjänster.</p>
+        <p style="font-size: 0.8rem; opacity: 0.85; margin-top: 10px;" data-i18n="project3Text2">Projektet visar praktisk problemlösning med tydligt användarfokus.</p>
         <div class="chip-wrap">
           <span class="chip">JavaScript</span>
           <span class="chip">Maps API</span>
           <span class="chip">Frontend</span>
         </div>
-        <a href="https://github.com/benji9812/goteborg-bar-map" target="_blank" rel="noopener noreferrer" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem;">Visa Repo</a>
+        <a href="https://github.com/benji9812/goteborg-bar-map" target="_blank" rel="noopener noreferrer" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem;" data-i18n="repoBtn">Visa Repo</a>
       </div>
 
       <div class="card project-card">
         <h4 class="rainbow-text">LifeSync-Bot</h4>
-        <p>En Discord-bot byggd för att underlätta vardagliga arbetsflöden. Visar förståelse för automation, externa integrationer och asynkron programmering.</p>
+        <p data-i18n="project4Text1">En Discord-bot skapad för att förenkla vardagliga arbetsflöden genom automation och integrationer.</p>
+        <p style="font-size: 0.8rem; opacity: 0.85; margin-top: 10px;" data-i18n="project4Text2">Projektet visar arbete med asynkron programmering och externa plattformar.</p>
         <div class="chip-wrap">
           <span class="chip">Node.js / Discord.js</span>
           <span class="chip">Automation</span>
         </div>
-        <a href="https://github.com/benji9812/LifeSync-Bot" target="_blank" rel="noopener noreferrer" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem;">Visa Repo</a>
+        <a href="https://github.com/benji9812/LifeSync-Bot" target="_blank" rel="noopener noreferrer" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem;" data-i18n="repoBtn">Visa Repo</a>
       </div>
 
       <div class="card project-card">
         <h4 class="rainbow-text">Lyric Cover Manager</h4>
-        <p>Ett verktyg för att hantera texter och covers utifrån ett konkret behov. Ett exempel på hur jag gillar att bygga lösningar för verkliga workflows.</p>
+        <p data-i18n="project5Text1">Ett verktyg för att organisera texter och covers utifrån ett konkret behov.</p>
+        <p style="font-size: 0.8rem; opacity: 0.85; margin-top: 10px;" data-i18n="project5Text2">Projektet speglar hur tekniska lösningar kan byggas för verkliga och nischade workflows.</p>
         <div class="chip-wrap">
           <span class="chip">Backend Logic</span>
           <span class="chip">Management</span>
           <span class="chip">Workflow Tool</span>
         </div>
-        <a href="https://github.com/benji9812/Lyric-Cover-Manager" target="_blank" rel="noopener noreferrer" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem;">Visa Repo</a>
+        <a href="https://github.com/benji9812/Lyric-Cover-Manager" target="_blank" rel="noopener noreferrer" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem;" data-i18n="repoBtn">Visa Repo</a>
       </div>
 
-      <div class="card project-card" style="border: 1px solid var(--neon4);">
+      <div class="card project-card">
         <h4 class="rainbow-text">Adventurer’s Journal</h4>
-        <p>Ett större samarbete i grupp som visar min förmåga att arbeta i team, använda Git i gruppmiljö och bidra till en gemensam lösning.</p>
+        <p data-i18n="project6Text1">Ett grupprojekt som visar samarbete, Git-arbete i team och gemensam leverans.</p>
+        <p style="font-size: 0.8rem; opacity: 0.85; margin-top: 10px;" data-i18n="project6Text2">Projektet speglar förmågan att arbeta strukturerat tillsammans med andra i en utvecklingsprocess.</p>
         <div class="chip-wrap">
           <span class="chip">Teamwork</span>
           <span class="chip">Collaborative Git</span>
         </div>
-        <a href="https://github.com/Vadfinnsinte/404-Not-Founders-GroupAssignment" target="_blank" rel="noopener noreferrer" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem;">Visa Projektet</a>
+        <a href="https://github.com/Vadfinnsinte/404-Not-Founders-GroupAssignment" target="_blank" rel="noopener noreferrer" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem;" data-i18n="projectBtn">Visa Projektet</a>
       </div>
     </div>
   </section>
 
   <section id="contact">
-    <h3 class="rainbow-text">Kontakt</h3>
+    <h3 class="rainbow-text" data-i18n="contactTitle">Kontakt</h3>
     <div class="card" style="text-align:center;">
-      <p>Är du intresserad av ett samarbete, en praktikmöjlighet eller vill du veta mer om min profil och mina projekt?</p>
+      <p data-i18n="contactText">Är du intresserad av ett samarbete, en praktikmöjlighet eller vill du veta mer om min profil och mina projekt?</p>
       <br>
-      <a href="mailto:Benjiw98@gmail.com" class="btn">✉️ Skicka ett mail</a>
+      <a href="mailto:Benjiw98@gmail.com" class="btn" data-i18n="contactMailBtn">✉️ Skicka ett mail</a>
     </div>
   </section>
 
   <footer>
-    © <span id="year"></span> Benjamin Wederbrand — Portfolio & CV
+    <span data-i18n="footerText">© Benjamin Wederbrand — Portfolio & CV</span>
     <div class="socials">
       <a href="https://github.com/benji9812" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
         <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.207 11.387.6.113.793-.262.793-.582 0-.288-.01-1.05-.016-2.06-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.744.082-.729.082-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.605-2.665-.305-5.467-1.332-5.467-5.93 0-1.31.468-2.382 1.236-3.222-.124-.305-.536-1.53.116-3.187 0 0 1.008-.322 3.3 1.23a11.52 11.52 0 0 1 3.003-.404c1.018.005 2.045.138 3.003.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.657.241 2.882.118 3.187.77.84 1.235 1.912 1.235 3.222 0 4.61-2.807 5.622-5.48 5.92.43.372.823 1.104.823 2.226 0 1.607-.015 2.902-.015 3.293 0 .322.192.7.8.58C20.565 21.797 24 17.298 24 12c0-6.63-5.373-12-12-12z"/></svg>
@@ -516,7 +579,147 @@
   </footer>
 
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    const translations = {
+      sv: {
+        navAbout: "Om mig",
+        navSkills: "Kompetens",
+        navFocus: "Fokus",
+        navExperience: "CV",
+        navProjects: "Projekt",
+        navContact: "Kontakt",
+        heroTitle: "Från kreativitet till backend & cloud 👋",
+        heroText: "Jag är en utvecklarstudent med fokus på backend och cloud som bygger praktisk mjukvara — från API:er och databaser till desktopappar, webblösningar och kreativa verktyg.",
+        heroBtnProjects: "Utforska mina projekt",
+        heroBtnCv: "Visa mitt CV",
+        aboutTitle: "Om mig",
+        aboutP1: "Mitt namn är <strong>Benjamin Wederbrand</strong>. Jag studerar backendutveckling med fokus på cloud och drivs av att bygga lösningar som är strukturerade, användbara och enkla att vidareutveckla.",
+        aboutP2: "Min bakgrund inom musik har gett mig disciplin, tålamod och kreativt tänkande, vilket jag tar med mig in i utveckling. När jag inte kodar gillar jag att utforska nya idéer, förbättra workflows och bygga projekt som löser riktiga problem.",
+        skillsTitle: "Kompetens",
+        skillsIntro: "Det här är områdena jag arbetar mest med just nu.",
+        skillsCard1Title: "Backend Development",
+        skillsCard1Text: "Fokus på affärslogik, API-design och databasdrivna lösningar. Jag gillar att bygga system som är tydliga, användbara och enkla att underhålla.",
+        skillsCard2Title: "Cloud & Infrastructure",
+        skillsCard2Text: "Erfarenhet av deployment, containers och moderna arbetsflöden med fokus på att förstå hela vägen från kod till körande lösning.",
+        skillsCard3Title: "Frontend & Interfaces",
+        skillsCard3Text: "Jag arbetar även med frontend och UI när projektet kräver det, både i webblösningar och i desktopappar där användarflödet spelar stor roll.",
+        focusTitle: "Nuvarande fokus",
+        focusCardTitle: "Det jag bygger mot just nu",
+        focusCardText: ".NET-backend, API:er, databaser, cloudrelaterade arbetsflöden, desktopappar i WPF och fullstackprojekt där backend kopplas ihop med frontend och deployment.",
+        experienceTitle: "Mitt CV",
+        experienceIntro: "En kort överblick av utbildning, bakgrund och vad jag söker just nu.",
+        eduTitle: "Utbildning",
+        eduText: "<strong>Backend Developer med cloudfokus</strong><br>NBI Handelsakademin / Yrkeshögskola<br>2025 - 2027",
+        backgroundTitle: "Bakgrund",
+        backgroundText: "<strong>Musik, service & problemlösning</strong><br>Bakgrund inom musik, service och kundkontakt har stärkt min kommunikation, disciplin och förmåga att arbeta strukturerat med människor och problem i fokus.",
+        nextStepTitle: "Nästa steg",
+        nextStepText: "<strong>Praktik, samarbete och fortsatt utveckling</strong><br>Jag söker möjligheter där jag kan fortsätta utvecklas inom .NET, backend och cloud, samtidigt som jag bidrar med driv, nyfikenhet och ett starkt intresse för att bygga användbara lösningar.",
+        contactBtnSmall: "Kontakta mig",
+        viewCvBtn: "📄 Visa CV i ny flik",
+        downloadCvBtn: "⬇️ Ladda ner CV",
+        projectsTitle: "Mina Projekt",
+        projectsIntro: "Ett urval av projekt som visar bredd över backend, desktop, web, automation och samarbete.",
+        featuredLabel: "Featured",
+        project1Text1: "Ett AI-drivet musikverktyg för att separera stems, analysera ackord och tempo samt ge mer flexibla musikaliska arbetsflöden.",
+        project1Text2: "Byggt som en C# WPF-app med Python FastAPI-backend och Swagger-dokumenterade analysendpoints.",
+        project2Text1: "Ett spelprojekt där fokus ligger på spelmekanik, kodstruktur och logisk uppbyggnad.",
+        project2Text2: "Projektet visar hur komplex funktionalitet kan organiseras på ett tydligt och hållbart sätt.",
+        project3Text1: "En interaktiv karta över Göteborgs nattliv som kombinerar frontend-visualisering med externa datatjänster.",
+        project3Text2: "Projektet visar praktisk problemlösning med tydligt användarfokus.",
+        project4Text1: "En Discord-bot skapad för att förenkla vardagliga arbetsflöden genom automation och integrationer.",
+        project4Text2: "Projektet visar arbete med asynkron programmering och externa plattformar.",
+        project5Text1: "Ett verktyg för att organisera texter och covers utifrån ett konkret behov.",
+        project5Text2: "Projektet speglar hur tekniska lösningar kan byggas för verkliga och nischade workflows.",
+        project6Text1: "Ett grupprojekt som visar samarbete, Git-arbete i team och gemensam leverans.",
+        project6Text2: "Projektet speglar förmågan att arbeta strukturerat tillsammans med andra i en utvecklingsprocess.",
+        repoBtn: "Visa Repo",
+        projectBtn: "Visa Projektet",
+        contactTitle: "Kontakt",
+        contactText: "Är du intresserad av ett samarbete, en praktikmöjlighet eller vill du veta mer om min profil och mina projekt?",
+        contactMailBtn: "✉️ Skicka ett mail",
+        footerText: "© Benjamin Wederbrand — Portfolio & CV"
+      },
+      en: {
+        navAbout: "About",
+        navSkills: "Skills",
+        navFocus: "Focus",
+        navExperience: "CV",
+        navProjects: "Projects",
+        navContact: "Contact",
+        heroTitle: "From creativity to backend & cloud 👋",
+        heroText: "I'm a developer student focused on backend and cloud, building practical software — from APIs and databases to desktop apps, web solutions, and creative tools.",
+        heroBtnProjects: "Explore my projects",
+        heroBtnCv: "View my CV",
+        aboutTitle: "About me",
+        aboutP1: "My name is <strong>Benjamin Wederbrand</strong>. I study backend development with a cloud focus and enjoy building solutions that are structured, useful, and easy to expand over time.",
+        aboutP2: "My background in music has given me discipline, patience, and creative thinking, which I bring into development. When I'm not coding, I enjoy exploring new ideas, improving workflows, and building projects that solve real problems.",
+        skillsTitle: "Skills",
+        skillsIntro: "These are the areas I work with the most right now.",
+        skillsCard1Title: "Backend Development",
+        skillsCard1Text: "Focused on business logic, API design, and database-driven solutions. I enjoy building systems that are clear, useful, and maintainable.",
+        skillsCard2Title: "Cloud & Infrastructure",
+        skillsCard2Text: "Experience with deployment, containers, and modern workflows, with a focus on understanding the full path from code to a running solution.",
+        skillsCard3Title: "Frontend & Interfaces",
+        skillsCard3Text: "I also work with frontend and UI when a project requires it, both in web solutions and desktop applications where user flow matters.",
+        focusTitle: "Current focus",
+        focusCardTitle: "What I'm building toward right now",
+        focusCardText: ".NET backend, APIs, databases, cloud-related workflows, WPF desktop applications, and fullstack projects where backend connects with frontend and deployment.",
+        experienceTitle: "My CV",
+        experienceIntro: "A short overview of my education, background, and what I'm currently aiming for.",
+        eduTitle: "Education",
+        eduText: "<strong>Backend Developer with cloud focus</strong><br>NBI Handelsakademin / Higher Vocational Education<br>2025 - 2027",
+        backgroundTitle: "Background",
+        backgroundText: "<strong>Music, service & problem solving</strong><br>A background in music, service, and customer-facing work has strengthened my communication, discipline, and ability to work in a structured way with people and problems in focus.",
+        nextStepTitle: "Next step",
+        nextStepText: "<strong>Internship, collaboration, and continued growth</strong><br>I'm looking for opportunities where I can continue growing in .NET, backend, and cloud while contributing drive, curiosity, and a strong interest in building useful solutions.",
+        contactBtnSmall: "Contact me",
+        viewCvBtn: "📄 Open CV in new tab",
+        downloadCvBtn: "⬇️ Download CV",
+        projectsTitle: "My Projects",
+        projectsIntro: "A selection of projects that shows breadth across backend, desktop, web, automation, and collaboration.",
+        featuredLabel: "Featured",
+        project1Text1: "An AI-powered music tool for stem separation, chord and tempo analysis, and more flexible music production workflows.",
+        project1Text2: "Built as a C# WPF application with a Python FastAPI backend and Swagger-documented analysis endpoints.",
+        project2Text1: "A game project focused on gameplay mechanics, code structure, and logical system design.",
+        project2Text2: "The project shows how complex functionality can be organized in a clear and sustainable way.",
+        project3Text1: "An interactive map of Gothenburg nightlife that combines frontend visualization with external data services.",
+        project3Text2: "The project demonstrates practical problem solving with a clear user focus.",
+        project4Text1: "A Discord bot created to simplify everyday workflows through automation and integrations.",
+        project4Text2: "The project demonstrates work with asynchronous programming and external platforms.",
+        project5Text1: "A tool for organizing lyrics and covers based on a concrete real-world need.",
+        project5Text2: "The project reflects how technical solutions can be built for real and niche workflows.",
+        project6Text1: "A group project that highlights collaboration, Git-based teamwork, and shared delivery.",
+        project6Text2: "The project reflects the ability to work in a structured way with others throughout a development process.",
+        repoBtn: "View Repo",
+        projectBtn: "View Project",
+        contactTitle: "Contact",
+        contactText: "Interested in collaborating, offering an internship opportunity, or learning more about my profile and projects?",
+        contactMailBtn: "✉️ Send an email",
+        footerText: "© Benjamin Wederbrand — Portfolio & CV"
+      }
+    };
+
+    const translatableElements = document.querySelectorAll('[data-i18n]');
+    const langButtons = document.querySelectorAll('[data-lang-btn]');
+
+    function setLanguage(lang) {
+      document.documentElement.lang = lang;
+      translatableElements.forEach(el => {
+        const key = el.dataset.i18n;
+        if (translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+
+      langButtons.forEach(btn => {
+        const isActive = btn.dataset.langBtn === lang;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+    }
+
+    langButtons.forEach(btn => {
+      btn.addEventListener('click', () => setLanguage(btn.dataset.langBtn));
+    });
 
     const sections = document.querySelectorAll("section");
     const heroText = document.getElementById("heroText");
@@ -530,6 +733,7 @@
     sections.forEach(sec => observer.observe(sec));
     window.addEventListener("load", () => {
       setTimeout(()=> heroText.classList.add("show"), 500);
+      setLanguage('sv');
     });
 
     const canvas = document.getElementById("bgCanvas");
