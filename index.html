@@ -179,6 +179,62 @@
     }
     .hero p.show {opacity:1; transform: translateY(0);}
 
+
+    .hero-activity-grid {
+      width: min(980px, 100%);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin: 0.4rem 0 1.5rem;
+    }
+    .activity-card {
+      text-align: left;
+      padding: 1rem 1rem 1.05rem;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 0 20px rgba(0,0,0,0.18);
+      backdrop-filter: blur(8px);
+      position: relative;
+      overflow: hidden;
+      transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+    }
+    .activity-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(0,240,255,0.85), rgba(255,0,230,0.7), transparent);
+      opacity: 0.85;
+    }
+    .activity-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0,240,255,0.24);
+      box-shadow: 0 0 24px rgba(0,240,255,0.08);
+    }
+    .activity-kicker {
+      display: inline-block;
+      margin-bottom: 0.35rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--neon1);
+      opacity: 0.85;
+    }
+    .activity-card strong {
+      display: block;
+      font-size: 0.98rem;
+      margin-bottom: 0.45rem;
+      color: #f0f0f0;
+    }
+    .activity-card p {
+      font-size: 0.87rem;
+      color: #bdbdbd;
+      margin: 0;
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
     .hero-highlights {
       display: flex;
       justify-content: center;
@@ -517,6 +573,10 @@
         min-width: auto;
         width: 100%;
       }
+      .hero-activity-grid {
+        grid-template-columns: 1fr;
+      }
+
       .status-line {
         font-size: 0.92rem;
       }
@@ -582,6 +642,23 @@
     <div class="hero-btns">
       <a href="#projects" class="btn" data-i18n="heroBtnProjects">Utforska mina projekt</a>
       <a href="#experience" class="btn" data-i18n="heroBtnCv">Visa mitt CV</a>
+    </div>
+    <div class="hero-activity-grid">
+      <div class="activity-card">
+        <span class="activity-kicker" data-i18n="activity1Kicker">Now building</span>
+        <strong data-i18n="activity1Title">AI Music Workstation</strong>
+        <p data-i18n="activity1Text">WPF frontend, Python/FastAPI analysis backend, better workflow for music production.</p>
+      </div>
+      <div class="activity-card">
+        <span class="activity-kicker" data-i18n="activity2Kicker">Current stack</span>
+        <strong data-i18n="activity2Title">.NET, SQL, Docker, Azure</strong>
+        <p data-i18n="activity2Text">Focused on backend structure, deployment flow, and practical fullstack integrations.</p>
+      </div>
+      <div class="activity-card">
+        <span class="activity-kicker" data-i18n="activity3Kicker">Open to</span>
+        <strong data-i18n="activity3Title">LIA, collaboration, real-world builds</strong>
+        <p data-i18n="activity3Text">Looking for opportunities to grow through useful products, team workflows, and sharp feedback.</p>
+      </div>
     </div>
     <div class="hero-highlights">
       <span class="tag">C# / .NET</span>
@@ -776,6 +853,15 @@
         heroBtnCv: "Visa mitt CV",
         statusLabel: "Current focus",
         statusPrefix: "Bygger:",
+        activity1Kicker: "Now building",
+        activity1Title: "AI Music Workstation",
+        activity1Text: "WPF frontend, Python/FastAPI-backend och bättre workflow för musikproduktion.",
+        activity2Kicker: "Current stack",
+        activity2Title: ".NET, SQL, Docker, Azure",
+        activity2Text: "Fokus på backendstruktur, deployments och praktiska fullstack-integrationer.",
+        activity3Kicker: "Open to",
+        activity3Title: "LIA, samarbete och riktiga byggen",
+        activity3Text: "Söker möjligheter att växa genom användbara produkter, teamwork och skarp feedback.",
         aboutTitle: "Om mig",
         aboutP1: "Mitt namn är <strong>Benjamin Wederbrand</strong>. Jag studerar backendutveckling med fokus på cloud och drivs av att bygga lösningar som är strukturerade, användbara och enkla att vidareutveckla.",
         aboutP2: "Min bakgrund inom musik har gett mig disciplin, tålamod och kreativt tänkande, vilket jag tar med mig in i utveckling. När jag inte kodar gillar jag att utforska nya idéer, förbättra workflows och bygga projekt som löser riktiga problem.",
@@ -836,6 +922,15 @@
         heroBtnCv: "View my CV",
         statusLabel: "Current focus",
         statusPrefix: "Building:",
+        activity1Kicker: "Now building",
+        activity1Title: "AI Music Workstation",
+        activity1Text: "WPF frontend, Python/FastAPI analysis backend, and better workflow for music production.",
+        activity2Kicker: "Current stack",
+        activity2Title: ".NET, SQL, Docker, Azure",
+        activity2Text: "Focused on backend structure, deployment flow, and practical fullstack integrations.",
+        activity3Kicker: "Open to",
+        activity3Title: "Internships, collaboration, real-world builds",
+        activity3Text: "Looking for opportunities to grow through useful products, team workflows, and sharp feedback.",
         aboutTitle: "About me",
         aboutP1: "My name is <strong>Benjamin Wederbrand</strong>. I study backend development with a cloud focus and enjoy building solutions that are structured, useful, and easy to expand over time.",
         aboutP2: "My background in music has given me discipline, patience, and creative thinking, which I bring into development. When I'm not coding, I enjoy exploring new ideas, improving workflows, and building projects that solve real problems.",
