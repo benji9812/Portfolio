@@ -49,8 +49,26 @@
       position: fixed;
       top:0; left:0;
       width:100%; height:100%;
-      z-index:-1;
+      z-index:-2;
       background:#000;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(0,240,255,0.08), transparent 25%),
+        radial-gradient(circle at 80% 30%, rgba(255,0,230,0.06), transparent 24%),
+        radial-gradient(circle at 50% 80%, rgba(255,221,0,0.04), transparent 28%);
+      animation: ambientGlow 14s ease-in-out infinite alternate;
+    }
+
+    @keyframes ambientGlow {
+      0% { transform: translateY(0px) scale(1); opacity: 0.75; }
+      100% { transform: translateY(-10px) scale(1.03); opacity: 1; }
     }
 
     header {
@@ -83,12 +101,13 @@
     }
     nav a {
       font-weight: 500;
-      transition: color .3s, background .3s, border-color .3s;
+      transition: color .3s, background .3s, border-color .3s, transform .25s;
       white-space: nowrap;
     }
     nav a:hover {
       color: var(--neon3);
       text-shadow: 0 0 5px var(--neon3);
+      transform: translateY(-1px);
     }
 
     .lang-toggle {
@@ -132,6 +151,17 @@
       align-items: center;
       text-align: center;
       padding: 2rem;
+      position: relative;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: min(540px, 82vw);
+      height: 1px;
+      bottom: 7rem;
+      background: linear-gradient(90deg, transparent, rgba(0,240,255,0.9), rgba(255,0,230,0.85), transparent);
+      box-shadow: 0 0 14px rgba(0,240,255,0.35);
+      animation: linePulse 4.8s ease-in-out infinite;
     }
     .hero h2 {
       font-size: 3rem;
@@ -163,6 +193,76 @@
       border-radius: 999px;
       color: #d2d2d2;
       background: rgba(255,255,255,0.03);
+      animation: floatTag 6s ease-in-out infinite;
+    }
+    .hero-highlights .tag:nth-child(2) { animation-delay: .6s; }
+    .hero-highlights .tag:nth-child(3) { animation-delay: 1.2s; }
+    .hero-highlights .tag:nth-child(4) { animation-delay: 1.8s; }
+
+    @keyframes floatTag {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @keyframes linePulse {
+      0%, 100% { opacity: 0.5; transform: scaleX(0.92); }
+      50% { opacity: 1; transform: scaleX(1.04); }
+    }
+
+    @keyframes caretBlink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    @keyframes widgetFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+
+    
+    .hero-status-card {
+      margin: 0 0 1.4rem;
+      padding: 0.95rem 1.2rem;
+      border-radius: 18px;
+      border: 1px solid rgba(0,240,255,0.24);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 24px rgba(0,240,255,0.08);
+      min-width: min(640px, 92vw);
+      animation: widgetFloat 7s ease-in-out infinite;
+    }
+    .status-label {
+      display: inline-block;
+      margin-bottom: 0.4rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--neon1);
+      opacity: 0.9;
+    }
+    .status-line {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 1rem;
+      color: #ececec;
+    }
+    .status-prefix {
+      color: #bbbbbb;
+    }
+    .rotating-text {
+      color: var(--neon3);
+      text-shadow: 0 0 10px rgba(255,221,0,0.22);
+      min-width: 17ch;
+      text-align: left;
+      font-weight: 700;
+    }
+    .caret {
+      color: var(--neon1);
+      animation: caretBlink 1s step-end infinite;
+      font-weight: 700;
     }
 
     .btn {
@@ -177,6 +277,22 @@
       text-shadow: 0 0 6px var(--neon1);
       transition: all 0.3s;
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 70%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.28), transparent);
+      transform: skewX(-20deg);
+      transition: left .5s ease;
+    }
+    .btn:hover::before {
+      left: 140%;
     }
     .btn:hover {
       background: var(--neon1);
@@ -201,6 +317,7 @@
       transform: translateY(30px);
       transition: opacity 1s ease, transform 1s ease;
       scroll-margin-top: var(--header-offset);
+      position: relative;
     }
     section.show {opacity: 1; transform: translateY(0);}
     section h3 {
@@ -226,16 +343,31 @@
       border-radius: 15px;
       padding: 2rem;
       backdrop-filter: blur(5px);
-      transition: transform .3s, box-shadow .3s;
+      transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
       height: 100%;
       position: relative;
+      overflow: hidden;
+    }
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.05) 50%, transparent 80%);
+      transform: translateX(-120%);
+      transition: transform .7s ease;
+      pointer-events: none;
+    }
+    .card:hover::after {
+      transform: translateX(120%);
     }
     .card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 0 15px var(--neon2);
+      box-shadow: 0 0 15px rgba(255,0,230,0.22);
+      border-color: rgba(0,240,255,0.22);
     }
     .featured-card {
       border: 1px solid rgba(0,240,255,0.4);
+      box-shadow: 0 0 20px rgba(0,240,255,0.08);
     }
     .featured-label {
       display: inline-block;
@@ -249,6 +381,12 @@
       color: var(--neon1);
       background: rgba(0,240,255,0.08);
       box-shadow: 0 0 12px rgba(0,240,255,0.08);
+      animation: pulseLabel 3.2s ease-in-out infinite;
+    }
+
+    @keyframes pulseLabel {
+      0%, 100% { box-shadow: 0 0 12px rgba(0,240,255,0.08); }
+      50% { box-shadow: 0 0 18px rgba(0,240,255,0.22); }
     }
 
     .progress-bar {
@@ -262,6 +400,12 @@
       height: 100%;
       background: linear-gradient(90deg, var(--neon1), var(--neon4));
       box-shadow: 0 0 10px var(--neon1);
+      animation: progressGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes progressGlow {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.2); }
     }
 
     .stack-note {
@@ -272,6 +416,7 @@
 
     .chip-wrap {
       margin-top: 15px;
+      margin-bottom: 1.1rem;
       display: flex;
       flex-wrap: wrap;
       gap: 0.45rem;
@@ -282,6 +427,11 @@
       padding: 2px 8px;
       border-radius: 10px;
       white-space: nowrap;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .chip:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 10px rgba(0,240,255,0.18);
     }
 
     .button-row {
@@ -294,8 +444,11 @@
       flex-direction: column;
     }
     .project-card .btn {
-      margin-top: auto !important;
+      margin: 0;
+      margin-top: auto;
       align-self: flex-start;
+      position: relative;
+      z-index: 1;
     }
 
     footer {
@@ -322,6 +475,7 @@
     .socials a:hover svg {
       fill: var(--neon2);
       filter: drop-shadow(0 0 8px var(--neon2));
+      transform: translateY(-2px);
     }
 
     @media(max-width: 900px) {
@@ -359,6 +513,17 @@
 
     @media(max-width: 768px) {
       .hero h2 {font-size: 2rem;}
+      .hero-status-card {
+        min-width: auto;
+        width: 100%;
+      }
+      .status-line {
+        font-size: 0.92rem;
+      }
+      .rotating-text {
+        min-width: 0;
+        text-align: center;
+      }
       .hero-btns {
         display: flex;
         flex-direction: column;
@@ -366,6 +531,17 @@
       }
       .btn {
         width: min(280px, 100%);
+      }
+      .project-card .btn {
+        width: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
       }
     }
   </style>
@@ -396,6 +572,13 @@
   <section class="hero">
     <h2 class="rainbow-text" data-i18n="heroTitle">Från kreativitet till backend & cloud 👋</h2>
     <p id="heroText" data-i18n="heroText">Jag är en utvecklarstudent med fokus på backend och cloud som bygger praktisk mjukvara — från API:er och databaser till desktopappar, webblösningar och kreativa verktyg.</p>
+    <div class="hero-status-card">
+      <span class="status-label" data-i18n="statusLabel">Current focus</span>
+      <div class="status-line">
+        <span class="status-prefix" data-i18n="statusPrefix">Building:</span>
+        <span id="rotatingText" class="rotating-text"></span><span class="caret">|</span>
+      </div>
+    </div>
     <div class="hero-btns">
       <a href="#projects" class="btn" data-i18n="heroBtnProjects">Utforska mina projekt</a>
       <a href="#experience" class="btn" data-i18n="heroBtnCv">Visa mitt CV</a>
@@ -591,6 +774,8 @@
         heroText: "Jag är en utvecklarstudent med fokus på backend och cloud som bygger praktisk mjukvara — från API:er och databaser till desktopappar, webblösningar och kreativa verktyg.",
         heroBtnProjects: "Utforska mina projekt",
         heroBtnCv: "Visa mitt CV",
+        statusLabel: "Current focus",
+        statusPrefix: "Bygger:",
         aboutTitle: "Om mig",
         aboutP1: "Mitt namn är <strong>Benjamin Wederbrand</strong>. Jag studerar backendutveckling med fokus på cloud och drivs av att bygga lösningar som är strukturerade, användbara och enkla att vidareutveckla.",
         aboutP2: "Min bakgrund inom musik har gett mig disciplin, tålamod och kreativt tänkande, vilket jag tar med mig in i utveckling. När jag inte kodar gillar jag att utforska nya idéer, förbättra workflows och bygga projekt som löser riktiga problem.",
@@ -649,6 +834,8 @@
         heroText: "I'm a developer student focused on backend and cloud, building practical software — from APIs and databases to desktop apps, web solutions, and creative tools.",
         heroBtnProjects: "Explore my projects",
         heroBtnCv: "View my CV",
+        statusLabel: "Current focus",
+        statusPrefix: "Building:",
         aboutTitle: "About me",
         aboutP1: "My name is <strong>Benjamin Wederbrand</strong>. I study backend development with a cloud focus and enjoy building solutions that are structured, useful, and easy to expand over time.",
         aboutP2: "My background in music has given me discipline, patience, and creative thinking, which I bring into development. When I'm not coding, I enjoy exploring new ideas, improving workflows, and building projects that solve real problems.",
@@ -701,7 +888,55 @@
     const translatableElements = document.querySelectorAll('[data-i18n]');
     const langButtons = document.querySelectorAll('[data-lang-btn]');
 
+    const rotatingText = document.getElementById("rotatingText");
+    const rotatingItems = {
+      sv: [
+        ".NET APIs & clean backend flows",
+        "WPF desktop tools med riktig nytta",
+        "Cloud, Docker & deployment skills",
+        "Creative tech projects med personlighet"
+      ],
+      en: [
+        ".NET APIs & clean backend flows",
+        "WPF desktop tools with real utility",
+        "Cloud, Docker & deployment skills",
+        "Creative tech projects with personality"
+      ]
+    };
+    let currentLang = 'sv';
+    let rotateIndex = 0;
+    let typingTimer;
+    let rotateTimer;
+
+    function typeText(text, callback) {
+      clearTimeout(typingTimer);
+      let i = 0;
+      rotatingText.textContent = '';
+      function step() {
+        rotatingText.textContent = text.slice(0, i);
+        i += 1;
+        if (i <= text.length) {
+          typingTimer = setTimeout(step, 34);
+        } else if (callback) {
+          rotateTimer = setTimeout(callback, 1800);
+        }
+      }
+      step();
+    }
+
+    function runRotator(forceReset = false) {
+      clearTimeout(typingTimer);
+      clearTimeout(rotateTimer);
+      const items = rotatingItems[currentLang];
+      if (forceReset) rotateIndex = 0;
+      typeText(items[rotateIndex], () => {
+        rotateIndex = (rotateIndex + 1) % items.length;
+        runRotator(false);
+      });
+    }
+
     function setLanguage(lang) {
+      currentLang = lang;
       document.documentElement.lang = lang;
       translatableElements.forEach(el => {
         const key = el.dataset.i18n;
@@ -715,6 +950,7 @@
         btn.classList.toggle('active', isActive);
         btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       });
+      runRotator(true);
     }
 
     langButtons.forEach(btn => {
